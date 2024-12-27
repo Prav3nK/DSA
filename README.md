@@ -1,3 +1,3 @@
 # DSA
 
- Practicing coding question
+Coding questions
