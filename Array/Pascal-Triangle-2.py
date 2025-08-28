@@ -1,0 +1,24 @@
+from typing import List
+
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        row = [1]  # Start with the first element which is always 1
+        
+        # Build the row using the mathematical formula
+        for i in range(1, rowIndex + 1):
+            # Calculate next element: previous element * (n - k + 1) / k
+            next_val = row[-1] * (rowIndex - i + 1) // i
+            row.append(next_val)
+        
+        return row
+
+# Test the solution
+if __name__ == "__main__":
+    sol = Solution()
+    
+    # Test cases
+    test_cases = [0, 1, 2, 3, 4, 5]
+    
+    for rowIndex in test_cases:
+        result = sol.getRow(rowIndex)
+        print(f"Row {rowIndex}: {result}")
