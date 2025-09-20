@@ -1,0 +1,84 @@
+# Sliding Window pattern is used to find a sub-array or sub-string that satisfies a specific condition, optimizing the time complexity by maintaining a window of elements.
+
+# Use this pattern when dealing with problems involving contiguous sub-arrays or sub-strings.
+
+# Sample Problem:
+
+# Find the maximum sum of a subarray of size k.
+
+# Example:
+
+#     Input: nums = [2, 1, 5, 1, 3, 2], k = 3
+#     Output: 9
+
+# Explanation:
+
+#     Start with the sum of the first k elements.
+#     Slide the window one element at a time, subtracting the element that goes out of the window and adding the new element.
+#     Keep track of the maximum sum encountered.
+
+# Question
+
+# 643. Maximum Average Subarray I
+# Easy
+# Topics
+# conpanies iconCompanies
+
+# You are given an integer array nums consisting of n elements, and an integer k.
+
+# Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+
+ 
+
+# Example 1:
+
+# Input: nums = [1,12,-5,-6,50,3], k = 4
+# Output: 12.75000
+# Explanation: Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+
+# Example 2:
+
+# Input: nums = [5], k = 1
+# Output: 5.00000
+
+
+# To solve this problem, we need to find a contiguous subarray of length k in the given array nums that has the maximum average value. The solution involves efficiently calculating the sum of each contiguous subarray of length k and then determining the maximum average from these sums.
+# Approach
+
+#     Sliding Window Technique: The problem requires processing contiguous subarrays of fixed length k. The sliding window technique is optimal here because it allows us to compute the sum of each subarray in constant time by reusing the sum from the previous subarray.
+
+#     Initial Setup: Calculate the sum of the first k elements to initialize the window sum.
+
+#     Iterate Through Array: Slide the window from the start to the end of the array. For each subsequent window, subtract the element that is left behind and add the new element that comes into the window. This gives the sum of the new window in O(1) time.
+
+#     Track Maximum Sum: During the iteration, keep track of the maximum sum encountered. Since the length k is fixed, the maximum average will be the maximum sum divided by k.
+
+#     Return Result: After processing all windows, return the maximum average by dividing the maximum sum by k.
+
+from typing import List
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        current_sum = sum(nums[:k])
+        max_sum = current_sum
+        
+        for i in range(k, len(nums)):
+            current_sum = current_sum - nums[i - k] + nums[i]
+            if current_sum > max_sum:
+                max_sum = current_sum
+        
+        return max_sum / k
+    
+
+# Explanation
+
+#     Initialization: The sum of the first k elements is computed and stored in current_sum. This sum is also initially set as max_sum.
+
+#     Sliding Window: For each subsequent element from index k to the end of the array, update current_sum by subtracting the element that is no longer in the window (i.e., the element at i - k) and adding the new element (i.e., the element at i). This efficiently computes the sum of the next window without recalculating the entire sum from scratch.
+
+#     Update Maximum: Compare the updated current_sum with max_sum and update max_sum if current_sum is larger.
+
+#     Result Calculation: After processing all possible windows, the maximum average is obtained by dividing max_sum by k and returning the result.
+
+# This approach efficiently computes the solution with a time complexity of O(n) and space complexity of O(1), making it optimal for large arrays.
+
